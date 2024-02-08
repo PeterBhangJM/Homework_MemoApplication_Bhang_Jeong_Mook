@@ -8,6 +8,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var activityMainBinding: ActivityMainBinding
 
+    //
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -20,6 +22,31 @@ class MainActivity : AppCompatActivity() {
 
 
     // 툴바 설정
+    fun setToolbar() {
+        activityMainBinding.apply {
+            toolbarMain.apply {
+                // 타이틀
+                title = "메모 관리"
+                // 메뉴
+                inflateMenu(R.menu.menu_main)
+                // 리스너
+                setOnMenuItemClickListener {
+                    when (it.itemId){
+                        // 더하기 메뉴
+                        R.id.menu_item_main -> {
+                            // 슬라이드 2로 이동
+                        }
+                        // 생략가능한 else 구문
+                        else -> {
+                        }
+                    }
+
+                    true
+                }
+
+            }
+        }
+    }
 
 
     // View 설정
