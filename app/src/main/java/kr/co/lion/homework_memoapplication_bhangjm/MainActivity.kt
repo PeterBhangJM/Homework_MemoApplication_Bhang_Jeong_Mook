@@ -1,8 +1,14 @@
 package kr.co.lion.homework_memoapplication_bhangjm
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.RecyclerView
 import kr.co.lion.homework_memoapplication_bhangjm.databinding.ActivityMainBinding
+import kr.co.lion.homework_memoapplication_bhangjm.databinding.RowMainBinding
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 inflateMenu(R.menu.menu_main)
                 // 리스너
                 setOnMenuItemClickListener {
-                    when (it.itemId){
+                    when (it.itemId) {
                         // 더하기 메뉴
                         R.id.menu_item_main -> {
                             // 슬라이드 2로 이동
@@ -56,6 +62,44 @@ class MainActivity : AppCompatActivity() {
 
 
     // RecyclerView 어뎁터 및 설정
+    inner class RecyclerViewMainAdapter :
+        RecyclerView.Adapter<RecyclerViewMainAdapter.ViewHolderMain>() {
+        // 뷰홀더 클라스
+        inner class ViewHolderMain(rowMainBinding: RowMainBinding) :
+            RecyclerView.ViewHolder(rowMainBinding.root) {
+            val rowMainBinding: RowMainBinding
+
+            init {
+                this.rowMainBinding = rowMainBinding
+                // 항목 클릭시 전체가 클릭이 될 수 있도록
+                // 가로 세로 길이를 설정해준다.
+                this.rowMainBinding.root.layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                // 항목을 눌렀을 때의 리스너
+            }
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderMain {
+            val rowMainBinding = RowMainBinding.inflate(layoutInflater)
+            val viewHolderMain = ViewHolderMain(rowMainBinding)
+
+            return viewHolderMain
+        }
+
+        override fun getItemCount(): Int {
+            return 100
+        }
+
+        @RequiresApi(Build.VERSION_CODES.O)
+        override fun onBindViewHolder(holder: ViewHolderMain, position: Int) {
+            // 날짜는 현재 날짜를 구해 사용한다.
+            val date: LocalDate = LocalDate.now()
+            holder.rowMainBinding.textViewDate.text = "작성 날짜 : ${date}"
+            holder.rowMainBinding.textViewTitle.text = "제목 : "
+        }
+    }
 
 
 }
