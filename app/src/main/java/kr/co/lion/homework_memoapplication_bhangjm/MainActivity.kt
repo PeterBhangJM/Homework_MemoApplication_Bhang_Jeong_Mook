@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import kr.co.lion.homework_memoapplication_bhangjm.databinding.ActivityMainBinding
 import kr.co.lion.homework_memoapplication_bhangjm.databinding.RowMainBinding
 import java.time.LocalDate
@@ -22,9 +24,17 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
+        setLauncher()
+        setToolbar()
+        setView()
+        setEvent()
+
     }
 
     // 런처 설정
+    fun setLauncher (){
+
+    }
 
 
     // 툴바 설정
@@ -56,9 +66,26 @@ class MainActivity : AppCompatActivity() {
 
 
     // View 설정
+    fun setView(){
+        activityMainBinding.apply {
+            // RecyclerView
+            recyclerViewMain.apply {
+                // 어뎁터
+                adapter = RecyclerViewMainAdapter()
+                // 레이아웃 매니저
+                layoutManager = LinearLayoutManager(this@MainActivity)
+                // 데코레이션
+                val deco = MaterialDividerItemDecoration(this@MainActivity, MaterialDividerItemDecoration.VERTICAL)
+                addItemDecoration(deco)
+            }
+        }
+    }
 
 
     // 이벤트 설정
+    fun setEvent(){
+
+    }
 
 
     // RecyclerView 어뎁터 및 설정
