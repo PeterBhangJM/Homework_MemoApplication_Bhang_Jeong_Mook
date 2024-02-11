@@ -21,40 +21,22 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="제목"
-            app:endIconMode="clear_text">
+            android:layout_height="match_parent" >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textShowInfoTitle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="작성날짜"
-            app:endIconMode="clear_text">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textShowInfoDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="내용"
-            app:endIconMode="clear_text">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textShowInfoMemo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/textViewShowInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </LinearLayout>

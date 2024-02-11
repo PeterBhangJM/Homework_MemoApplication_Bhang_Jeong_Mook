@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Homework_MemoApplication_BhangJM"
         tools:targetApi="31">
         <activity
+            android:name=".ModifyActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShowInfoActivity"
             android:exported="false" />
         <activity

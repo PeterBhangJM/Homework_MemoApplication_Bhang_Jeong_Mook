@@ -22,7 +22,10 @@ class MainActivity : AppCompatActivity() {
     // InputActivity의 런처
     lateinit var inputActivityLauncher: ActivityResultLauncher<Intent>
 
-    // 메모의 정보를 담을 리슽
+    //ShowInfoActivity의 런처
+    lateinit var showInfoActivityLauncher:ActivityResultLauncher<Intent>
+
+    // 메모의 정보를 담을 리스트
     val memoList = mutableListOf<MemoData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +66,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         // ShowActivity 런처  등록
+        val contract2 = ActivityResultContracts.StartActivityForResult()
+        showInfoActivityLauncher = registerForActivityResult(contract2){
 
+        }
 
         // ModifyActivity 런처 등록
 
@@ -153,6 +159,8 @@ class MainActivity : AppCompatActivity() {
                 // 항목을 눌렀을 때의 리스너
                 this.rowMainBinding.root.setOnClickListener {
                     // // ShowInfoActivity를 실행한다.
+                    val showInfoIntent = Intent(this@MainActivity, ShowInfoActivity::class.java)
+
                 }
             }
         }
