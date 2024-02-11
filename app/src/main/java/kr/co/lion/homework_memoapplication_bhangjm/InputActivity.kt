@@ -1,5 +1,6 @@
 package kr.co.lion.homework_memoapplication_bhangjm
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,11 +18,12 @@ class InputActivity : AppCompatActivity() {
         activityInputBinding = ActivityInputBinding.inflate(layoutInflater)
         setContentView(activityInputBinding.root)
 
+        setToolbar()
+        setView()
 
     }
 
     // toolbar 설정
-    @RequiresApi(Build.VERSION_CODES.O)
     fun setToolbar() {
         activityInputBinding.apply {
             toolbarInput.apply {
@@ -51,17 +53,38 @@ class InputActivity : AppCompatActivity() {
 
     // View 설정
     fun setView() {
+        activityInputBinding.apply {
+            // 내용 입력
+            // 엔터키를 누르면 입력 완료 처리를 한다
+            textFieldInputMemo.setOnEditorActionListener { v, actionId, event ->
+                processInputDone()
+                true
+            }
+
+        }
 
     }
 
     // 입력 완료 처리
-    @RequiresApi(Build.VERSION_CODES.O)
     fun processInputDone() {
         activityInputBinding.apply {
-            // 입력한 내용을 가져온다
 
+            // 입력한 내용을 가져온다
             val title = textFieldInputTitle.text.toString()
-            // val memo = textFieldInputMemo.text.toString()
+            // 내용을 memo로 설정
+            val memo = textFieldInputMemo.text.toString()
+
+            // 입력받은 정보를 객체에 담아준다
+            val meomoData = MemoData(title, memo)
+
+            // 이전으로 돌아간다
+            val resultIntent = Intent()
+            resultIntent.putExtra("memoData", meomoData )
+
+            setResult(RESULT_OK, resultIntent)
+            finish()
+            setResult(RESULT_OK)
+            finish()
 
         }
 

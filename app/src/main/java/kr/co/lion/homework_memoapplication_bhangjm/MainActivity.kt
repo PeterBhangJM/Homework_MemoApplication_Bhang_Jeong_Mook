@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,24 +22,63 @@ class MainActivity : AppCompatActivity() {
     // InputActivity의 런처
     lateinit var inputActivityLauncher: ActivityResultLauncher<Intent>
 
+    // 메모의 정보를 담을 리슽
+    val memoList = mutableListOf<MemoData>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
-        setLauncher()
+        initData()
         setToolbar()
         setView()
         setEvent()
 
     }
 
-    // 런처 설정
-    fun setLauncher (){
+
+    // 기본 데이터 및 객체 세팅 (런처 포함)
+    fun initData (){
+        // InputActivity 런처 등록
+        val contract1 = ActivityResultContracts.StartActivityForResult()
+        inputActivityLauncher = registerForActivityResult(contract1) {
+            // 작업 결과가 OK라면
+            if (it.resultCode == RESULT_OK){
+                // 전달된 Intent 객체가 있다면
+                if (it.data !=null){
+                    // 메모 객체를 추출한다
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+                        val memoData = it.data?.getParcelableExtra("memoData", MemoData::class.java)
+                        memoList.add(memoData!!)
+                        activityMainBinding.recyclerViewMain.adapter?.notifyDataSetChanged()
+                    } else {
+                        val memoData = it.data?.getParcelableExtra<MemoData>("memoData")
+                        memoList.add(memoData!!)
+                        activityMainBinding.recyclerViewMain.adapter?.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
+
+        // ShowActivity 런처  등록
+
+
+        // ModifyActivity 런처 등록
 
     }
+    /*
+    override fun onResume() {
+        super.onResume()
+        activityMainBinding.apply {
+            // 리사이클러뷰 갱신
+            recyclerViewMain.adapter?.notifyDataSetChanged()
 
+        }
+    }
+
+     */
 
     // 툴바 설정
     fun setToolbar() {
@@ -50,6 +90,7 @@ class MainActivity : AppCompatActivity() {
                 inflateMenu(R.menu.menu_main)
                 // 리스너
                 setOnMenuItemClickListener {
+                    //  메뉴의 id로 분기할 수 있으면 분기
                     when (it.itemId) {
                         // 더하기 메뉴
                         R.id.menu_item_main -> {
@@ -95,8 +136,7 @@ class MainActivity : AppCompatActivity() {
 
 
     // RecyclerView 어뎁터 및 설정
-    inner class RecyclerViewMainAdapter :
-        RecyclerView.Adapter<RecyclerViewMainAdapter.ViewHolderMain>() {
+    inner class RecyclerViewMainAdapter : RecyclerView.Adapter<RecyclerViewMainAdapter.ViewHolderMain>() {
         // 뷰홀더 클라스
         inner class ViewHolderMain(rowMainBinding: RowMainBinding) :
             RecyclerView.ViewHolder(rowMainBinding.root) {
@@ -111,6 +151,9 @@ class MainActivity : AppCompatActivity() {
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
                 // 항목을 눌렀을 때의 리스너
+                this.rowMainBinding.root.setOnClickListener {
+                    // // ShowInfoActivity를 실행한다.
+                }
             }
         }
 
@@ -122,7 +165,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getItemCount(): Int {
-            return 100
+            return 10
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
