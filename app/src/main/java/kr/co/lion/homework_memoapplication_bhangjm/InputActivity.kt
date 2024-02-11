@@ -59,12 +59,9 @@ class InputActivity : AppCompatActivity() {
     fun processInputDone() {
         activityInputBinding.apply {
             // 입력한 내용을 가져온다
-            val date: LocalDate = LocalDate.now()
-            textViewInputDate.apply {
-                text = "작성 날짜 : ${date}\n"
-            }
+
             val title = textFieldInputTitle.text.toString()
-            val context = textFieldInputContent.text.toString()
+            // val memo = textFieldInputMemo.text.toString()
 
         }
 
