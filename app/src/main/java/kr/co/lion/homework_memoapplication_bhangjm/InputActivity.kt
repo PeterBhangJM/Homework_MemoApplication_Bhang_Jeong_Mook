@@ -1,8 +1,11 @@
 package kr.co.lion.homework_memoapplication_bhangjm
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import kr.co.lion.homework_memoapplication_bhangjm.databinding.ActivityInputBinding
+import java.time.LocalDate
 
 class InputActivity : AppCompatActivity() {
 
@@ -18,7 +21,8 @@ class InputActivity : AppCompatActivity() {
     }
 
     // toolbar 설정
-    fun setToolbar (){
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun setToolbar() {
         activityInputBinding.apply {
             toolbarInput.apply {
                 // 타이틀
@@ -32,9 +36,10 @@ class InputActivity : AppCompatActivity() {
                 // 메뉴
                 inflateMenu(R.menu.memu_input)
                 setOnMenuItemClickListener {
-                    when(it.itemId){
+                    when (it.itemId) {
                         R.id.menu_input_done -> {
                             // 입력 처리
+                            processInputDone()
                         }
                     }
                     true
@@ -45,7 +50,23 @@ class InputActivity : AppCompatActivity() {
 
 
     // View 설정
-    fun setView (){
+    fun setView() {
+
+    }
+
+    // 입력 완료 처리
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun processInputDone() {
+        activityInputBinding.apply {
+            // 입력한 내용을 가져온다
+            val date: LocalDate = LocalDate.now()
+            textViewInputDate.apply {
+                text = "작성 날짜 : ${date}\n"
+            }
+            val title = textFieldInputTitle.text.toString()
+            val context = textFieldInputContent.text.toString()
+
+        }
 
     }
 }

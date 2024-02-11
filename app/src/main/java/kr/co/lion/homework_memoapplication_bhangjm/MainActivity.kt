@@ -1,9 +1,11 @@
 package kr.co.lion.homework_memoapplication_bhangjm
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var activityMainBinding: ActivityMainBinding
 
-    //
+    // InputActivity의 런처
+    lateinit var inputActivityLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +54,9 @@ class MainActivity : AppCompatActivity() {
                         // 더하기 메뉴
                         R.id.menu_item_main -> {
                             // 슬라이드 2로 이동
+                            // InputActivity를 실행한다.
+                            val inputIntent = Intent(this@MainActivity, InputActivity::class.java)
+                            inputActivityLauncher.launch(inputIntent)
                         }
                         // 생략가능한 else 구문
                         else -> {
