@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         initData()
         setToolbar()
         setView()
-        setEvent()
+        // setEvent()
 
     }
 
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 // 전달된 Intent 객체가 있다면
                 if (it.data !=null){
                     // 메모 객체를 추출한다
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+                    if(Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU){
                         val memoData = it.data?.getParcelableExtra("memoData", MemoData::class.java)
                         memoList.add(memoData!!)
                         activityMainBinding.recyclerViewMain.adapter?.notifyDataSetChanged()
@@ -70,9 +70,7 @@ class MainActivity : AppCompatActivity() {
         showInfoActivityLauncher = registerForActivityResult(contract2){
 
         }
-
         // ModifyActivity 런처 등록
-
     }
     /*
     override fun onResume() {
@@ -160,7 +158,10 @@ class MainActivity : AppCompatActivity() {
                 this.rowMainBinding.root.setOnClickListener {
                     // // ShowInfoActivity를 실행한다.
                     val showInfoIntent = Intent(this@MainActivity, ShowInfoActivity::class.java)
+                    // 선택한 항목 번째의 학생 객체를 Intent에 담아준다
+                    showInfoIntent.putExtra("position", memoList[adapterPosition])
 
+                    showInfoActivityLauncher.launch(showInfoIntent)
                 }
             }
         }
@@ -173,7 +174,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getItemCount(): Int {
-            return 10
+            // return 20
+            return memoList.size
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
@@ -181,7 +183,7 @@ class MainActivity : AppCompatActivity() {
             // 날짜는 현재 날짜를 구해 사용한다.
             val date: LocalDate = LocalDate.now()
             holder.rowMainBinding.textViewDate.text = "작성 날짜 : ${date}"
-            holder.rowMainBinding.textViewTitle.text = "제목 : "
+            holder.rowMainBinding.textViewTitle.text = "제목 : ${memoList[position].title} "
         }
     }
 
