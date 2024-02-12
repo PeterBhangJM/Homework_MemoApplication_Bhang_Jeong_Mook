@@ -90,7 +90,7 @@ class ShowInfoActivity : AppCompatActivity() {
                 val memoShow = Util.memoList[position]
 
                 // 기본 사항들
-                text = "작성 날짜 : "
+                text = "작성 날짜 :  \n"
                 append("제목 : ${memoShow.title}\n")
                 append("내용 : ${memoShow.memo}\n")
 

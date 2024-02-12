@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         }
         // ModifyActivity 런처 등록
     }
-    /*
     override fun onResume() {
         super.onResume()
         activityMainBinding.apply {
@@ -82,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-     */
 
     // 툴바 설정
     fun setToolbar() {
