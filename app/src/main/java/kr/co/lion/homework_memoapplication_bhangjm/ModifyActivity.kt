@@ -13,6 +13,8 @@ class ModifyActivity : AppCompatActivity() {
         activityModifyBinding = ActivityModifyBinding.inflate(layoutInflater)
         setContentView(activityModifyBinding.root)
 
+        setToolbar()
+        setView()
 
     }
 
@@ -44,12 +46,33 @@ class ModifyActivity : AppCompatActivity() {
     fun setView(){
         activityModifyBinding.apply {
 
+            //  순서값 추출
+            val position = intent.getIntExtra("position", 0)
+            // position 번째 객체를 추출한다
+            val memoModify = Util.memoList[position]
+
+            // 기본 공통 사항 (작업 날짜 빼고 일단)
+            textFieldModifyTitle.setText(memoModify.title)
+            textFieldModifyMemo.setText(memoModify.memo)
+
         }
 
     }
 
     // 수정 처리
     fun modifyData(){
+        // 위치 값을 가져 온다
+        val position = intent.getIntExtra("position", 0)
+        // position 번째 객체를 가져온다
+        val memoModify = Util.memoList[position]
+
+        activityModifyBinding.apply {
+            // 기본 공통 사항
+            memoModify.title = textFieldModifyTitle.text.toString()
+            memoModify.memo = textFieldModifyMemo.text.toString()
+            // 작성 날짜 ; 이걸 어떻게 한다?
+
+        }
 
     }
 }
