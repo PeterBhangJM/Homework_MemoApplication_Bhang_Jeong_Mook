@@ -10,7 +10,7 @@
         android:title="수정"
         app:showAsAction="always" />
     <item
-        android:id="@+id/memi_item_delete"
+        android:id="@+id/memu_item_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/delete_24px"
