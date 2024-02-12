@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var showInfoActivityLauncher:ActivityResultLauncher<Intent>
 
     // 메모의 정보를 담을 리스트
-    val memoList = mutableListOf<MemoData>()
+    // val memoList = mutableListOf<MemoData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,11 +54,11 @@ class MainActivity : AppCompatActivity() {
                     // 메모 객체를 추출한다
                     if(Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU){
                         val memoData = it.data?.getParcelableExtra("memoData", MemoData::class.java)
-                        memoList.add(memoData!!)
+                        Util.memoList.add(memoData!!)
                         activityMainBinding.recyclerViewMain.adapter?.notifyDataSetChanged()
                     } else {
                         val memoData = it.data?.getParcelableExtra<MemoData>("memoData")
-                        memoList.add(memoData!!)
+                        Util.memoList.add(memoData!!)
                         activityMainBinding.recyclerViewMain.adapter?.notifyDataSetChanged()
                     }
                 }
@@ -159,7 +159,7 @@ class MainActivity : AppCompatActivity() {
                     // // ShowInfoActivity를 실행한다.
                     val showInfoIntent = Intent(this@MainActivity, ShowInfoActivity::class.java)
                     // 선택한 항목 번째의 학생 객체를 Intent에 담아준다
-                    showInfoIntent.putExtra("position", memoList[adapterPosition])
+                    showInfoIntent.putExtra("position", Util.memoList[adapterPosition])
 
                     showInfoActivityLauncher.launch(showInfoIntent)
                 }
@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItemCount(): Int {
             // return 20
-            return memoList.size
+            return Util.memoList.size
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity() {
             // 날짜는 현재 날짜를 구해 사용한다.
             val date: LocalDate = LocalDate.now()
             holder.rowMainBinding.textViewDate.text = "작성 날짜 : ${date}"
-            holder.rowMainBinding.textViewTitle.text = "제목 : ${memoList[position].title} "
+            holder.rowMainBinding.textViewTitle.text = "제목 : ${Util.memoList[position].title} "
         }
     }
 
